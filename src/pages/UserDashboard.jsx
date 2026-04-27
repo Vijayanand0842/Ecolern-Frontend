@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 
 export default function UserDashboard() {
@@ -18,7 +18,7 @@ export default function UserDashboard() {
 
   const fetchLessons = async () => {
     try {
-      const res = await fetch('/api/lessons');
+      const res = await fetch((import.meta.env.VITE_API_URL || '') + '/api/lessons');
       const data = await res.json();
       setLessons(data);
     } catch (err) {
@@ -60,7 +60,7 @@ export default function UserDashboard() {
       <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
         <h2 className="text-gradient" style={{ margin: 0, fontSize: '2rem' }}>EcoLearn</h2>
         <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
-          <button className="btn btn-secondary" onClick={() => navigate('/projects')}>🌍 View Projects</button>
+          <button className="btn btn-secondary" onClick={() => navigate('/projects')}>ðŸŒ View Projects</button>
           <button className="btn" onClick={handleLogout} style={{ background: 'transparent', color: 'var(--text-muted)' }}>Logout</button>
         </div>
       </header>
@@ -69,7 +69,7 @@ export default function UserDashboard() {
       <div className="glass-panel" style={{ marginBottom: '3rem', background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(59, 130, 246, 0.1))' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '2rem' }}>
           <div>
-            <h1 style={{ fontSize: '2.5rem', marginBottom: '0.5rem' }}>Welcome back, {user.username}! 🌱</h1>
+            <h1 style={{ fontSize: '2.5rem', marginBottom: '0.5rem' }}>Welcome back, {user.username}! ðŸŒ±</h1>
             <p style={{ color: 'var(--text-muted)', fontSize: '1.2rem', maxWidth: '600px' }}>
               You are making a real difference. Complete lessons and join projects to level up your eco-status.
             </p>
@@ -77,7 +77,7 @@ export default function UserDashboard() {
           
           <div className="glass-panel hoverable" style={{ padding: '1.5rem', minWidth: '300px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
-              <span style={{ fontWeight: 'bold', fontSize: '1.2rem' }}>🌟 Eco-Level {level}</span>
+              <span style={{ fontWeight: 'bold', fontSize: '1.2rem' }}>ðŸŒŸ Eco-Level {level}</span>
               <span style={{ color: 'var(--primary)', fontWeight: 'bold' }}>{points} / {nextLevelPoints} pts</span>
             </div>
             <div className="progress-container">
@@ -90,7 +90,7 @@ export default function UserDashboard() {
         </div>
       </div>
 
-      <h3 style={{ fontSize: '1.8rem', marginBottom: '1.5rem' }}>📚 Recommended Lessons</h3>
+      <h3 style={{ fontSize: '1.8rem', marginBottom: '1.5rem' }}>ðŸ“š Recommended Lessons</h3>
       <div className="grid">
         {lessons.length === 0 ? (
           <p>No lessons available right now.</p>
@@ -114,3 +114,4 @@ export default function UserDashboard() {
     </div>
   );
 }
+

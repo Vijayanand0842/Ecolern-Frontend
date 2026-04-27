@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export default function ProjectBoard() {
@@ -18,7 +18,7 @@ export default function ProjectBoard() {
 
   const fetchProjects = async (userId) => {
     try {
-      const res = await fetch(`/api/projects?userId=${userId}`);
+      const res = await fetch(`${import.meta.env.VITE_API_URL || ""}/api/projects?userId=${userId}`);
       setProjects(await res.json());
     } catch (err) {
       console.error(err);
@@ -32,7 +32,7 @@ export default function ProjectBoard() {
     }
     setIsSubmitting(true);
     try {
-      await fetch(`/api/projects/${selectedProject.id}/complete`, {
+      await fetch(`${import.meta.env.VITE_API_URL || ""}/api/projects/${selectedProject.id}/complete`, {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ userId: user.id, proof: proofText })
       });
@@ -49,7 +49,7 @@ export default function ProjectBoard() {
   const deleteProject = async (projectId) => {
     if (!window.confirm('Are you sure you want to delete this project?')) return;
     try {
-      await fetch(`/api/projects/${projectId}`, { method: 'DELETE' });
+      await fetch(`${import.meta.env.VITE_API_URL || ""}/api/projects/${projectId}`, { method: 'DELETE' });
       fetchProjects(user.id);
     } catch (err) {
       console.error(err);
@@ -60,7 +60,7 @@ export default function ProjectBoard() {
     <div className="container animate-fade-in" style={{ position: 'relative' }}>
       <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '3rem' }}>
         <div>
-          <h2 className="text-gradient" style={{ margin: 0, fontSize: '2.5rem' }}>Global Projects 🌍</h2>
+          <h2 className="text-gradient" style={{ margin: 0, fontSize: '2.5rem' }}>Global Projects ðŸŒ</h2>
           <p style={{ color: 'var(--text-muted)' }}>Complete physical tasks to earn massive Eco-Points!</p>
         </div>
         <button className="btn btn-secondary" onClick={() => navigate('/dashboard')}>Back to Dashboard</button>
@@ -95,11 +95,11 @@ export default function ProjectBoard() {
                 
                 {project.status === 'APPROVED' ? (
                   <button className="btn btn-secondary" style={{ width: '100%', cursor: 'default' }} disabled>
-                    ✓ Completed
+                    âœ“ Completed
                   </button>
                 ) : project.status === 'PENDING' ? (
                   <button className="btn btn-secondary" style={{ width: '100%', cursor: 'default', color: '#f59e0b', border: '1px solid #f59e0b' }} disabled>
-                    ⏳ Pending Approval
+                    â³ Pending Approval
                   </button>
                 ) : (
                   <button className="btn" onClick={() => setSelectedProject(project)} style={{ 
@@ -153,3 +153,4 @@ export default function ProjectBoard() {
     </div>
   );
 }
+

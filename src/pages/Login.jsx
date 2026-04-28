@@ -56,7 +56,8 @@ export default function Login() {
     const payload = isRegister ? { username, password, name, email } : { username, password };
     
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL || ''}${endpoint}`, {
+      const baseUrl = import.meta.env.VITE_API_URL || 'https://ecolearn-backend-ehag.onrender.com';
+      const res = await fetch(`${baseUrl}${endpoint}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)

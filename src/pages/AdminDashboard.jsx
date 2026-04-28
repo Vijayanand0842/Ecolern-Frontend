@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export default function AdminDashboard() {
@@ -87,7 +87,7 @@ export default function AdminDashboard() {
   return (
     <div className="container animate-fade-in">
       <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '3rem' }}>
-        <h2 className="text-gradient" style={{ margin: 0, fontSize: '2.5rem' }}>Admin Gateway ðŸ›¡ï¸</h2>
+        <h2 className="text-gradient" style={{ margin: 0, fontSize: '2.5rem' }}>Admin Gateway</h2>
         <button className="btn btn-secondary" onClick={() => { localStorage.clear(); navigate('/login'); }}>Logout</button>
       </header>
 
@@ -136,7 +136,7 @@ export default function AdminDashboard() {
                 {users.map(u => (
                   <tr key={u.id} style={{ borderBottom: '1px solid var(--surface-border)' }}>
                     <td style={{ padding: '1rem' }}><b>{u.username}</b> <br/><small>{u.points} pts</small></td>
-                    <td style={{ color: u.verified ? 'var(--primary)' : '#f59e0b', fontWeight: 'bold' }}>{u.verified ? 'âœ“ Verified' : 'Pending'}</td>
+                    <td style={{ color: u.verified ? 'var(--primary)' : '#f59e0b', fontWeight: 'bold' }}>{u.verified ? 'Verified' : 'Pending'}</td>
                     <td><button className="btn btn-secondary" style={{ padding: '0.4rem 1rem' }} onClick={() => loadUserDetails(u)}>Inspect</button></td>
                   </tr>
                 ))}
@@ -144,7 +144,7 @@ export default function AdminDashboard() {
             </table>
           ) : (
             <div className="animate-fade-in">
-               <button className="btn" onClick={()=>setSelectedUser(null)} style={{ marginBottom: '1rem' }}>â† Back</button>
+               <button className="btn" onClick={()=>setSelectedUser(null)} style={{ marginBottom: '1rem' }}>Back</button>
                <h4>Details for: <span className="text-gradient">{selectedUser.username}</span></h4>
                <p>Status: {selectedUser.verified ? 'Verified' : 'Unverified'}</p>
                
@@ -198,4 +198,3 @@ export default function AdminDashboard() {
     </div>
   );
 }
-

@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export default function ProjectBoard() {
@@ -60,7 +60,7 @@ export default function ProjectBoard() {
     <div className="container animate-fade-in" style={{ position: 'relative' }}>
       <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '3rem' }}>
         <div>
-          <h2 className="text-gradient" style={{ margin: 0, fontSize: '2.5rem' }}>Global Projects ðŸŒ</h2>
+          <h2 className="text-gradient" style={{ margin: 0, fontSize: '2.5rem' }}>Global Projects</h2>
           <p style={{ color: 'var(--text-muted)' }}>Complete physical tasks to earn massive Eco-Points!</p>
         </div>
         <button className="btn btn-secondary" onClick={() => navigate('/dashboard')}>Back to Dashboard</button>
@@ -95,11 +95,11 @@ export default function ProjectBoard() {
                 
                 {project.status === 'APPROVED' ? (
                   <button className="btn btn-secondary" style={{ width: '100%', cursor: 'default' }} disabled>
-                    âœ“ Completed
+                    Completed
                   </button>
                 ) : project.status === 'PENDING' ? (
                   <button className="btn btn-secondary" style={{ width: '100%', cursor: 'default', color: '#f59e0b', border: '1px solid #f59e0b' }} disabled>
-                    â³ Pending Approval
+                    Pending Approval
                   </button>
                 ) : (
                   <button className="btn" onClick={() => setSelectedProject(project)} style={{ 
@@ -153,4 +153,3 @@ export default function ProjectBoard() {
     </div>
   );
 }
-

@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 
 export default function LessonViewer() {
@@ -95,7 +95,7 @@ export default function LessonViewer() {
   return (
     <div className="container animate-fade-in">
       <header style={{ marginBottom: '2rem' }}>
-        <button className="btn btn-secondary" onClick={() => viewState === 'modules' ? navigate('/dashboard') : setViewState('modules')}>â† Back</button>
+        <button className="btn btn-secondary" onClick={() => viewState === 'modules' ? navigate('/dashboard') : setViewState('modules')}>Back</button>
       </header>
 
       {viewState === 'modules' && (
@@ -113,7 +113,7 @@ export default function LessonViewer() {
               <div key={mod.id} className="glass-panel hoverable" style={{ padding: '1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <div>
                   <h4 style={{ margin: 0, fontSize: '1.3rem' }}>{mod.title}</h4>
-                  {mod.completed === 1 && <span style={{ color: 'var(--primary)', fontWeight: 'bold' }}>âœ“ Completed</span>}
+                  {mod.completed === 1 && <span style={{ color: 'var(--primary)', fontWeight: 'bold' }}>Completed</span>}
                 </div>
                 <button className={`btn ${mod.completed ? 'btn-secondary' : 'btn-primary'}`} onClick={() => startModule(mod)}>
                   {mod.completed ? 'Review Module' : 'Start Module'}
@@ -134,7 +134,7 @@ export default function LessonViewer() {
           </div>
           <div style={{ position: 'absolute', bottom: '2rem', right: '2rem' }}>
              <button className="btn btn-primary" onClick={nextPage}>
-               {currentPageIndex === pages.length - 1 ? 'Take Comprehensive Quiz âžœ' : 'Next Page âžœ'}
+               {currentPageIndex === pages.length - 1 ? 'Take Comprehensive Quiz' : 'Next Page'}
              </button>
           </div>
         </div>
@@ -177,7 +177,6 @@ export default function LessonViewer() {
 
       {viewState === 'success' && (
         <div className="glass-panel" style={{ textAlign: 'center', background: 'rgba(16, 185, 129, 0.1)' }}>
-          <h1 style={{ fontSize: '4rem', margin: 0 }}>ðŸŽ‰</h1>
           <h2 style={{ color: 'var(--primary)' }}>Module Mastered!</h2>
           <p style={{ fontSize: '1.2rem', marginBottom: '2rem' }}>You earned 50 Eco-Points for passing the quiz!</p>
           <button className="btn btn-primary" onClick={() => setViewState('modules')}>Return to Curriculum</button>
@@ -186,4 +185,3 @@ export default function LessonViewer() {
     </div>
   );
 }
-

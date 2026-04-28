@@ -2,3 +2,8 @@ node_modules/
 dist/
 .env
 .vite/
+
+.vercel
+
+# Local Netlify folder
+.netlify

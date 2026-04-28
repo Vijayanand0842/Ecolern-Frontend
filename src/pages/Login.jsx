@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export default function Login() {
@@ -56,7 +56,7 @@ export default function Login() {
     const payload = isRegister ? { username, password, name, email } : { username, password };
     
     try {
-      const res = await fetch(`${endpoint}`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || ''}${endpoint}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
@@ -139,8 +139,8 @@ export default function Login() {
             <p style={{ color: 'var(--text-muted)', fontSize: '1.3rem', marginBottom: '4rem' }}>Select your portal access level</p>
             
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-              <button className="btn btn-primary" style={{ padding: '2rem', fontSize: '1.4rem', borderRadius: '16px', boxShadow: '0 8px 30px rgba(16, 185, 129, 0.4)' }} onClick={() => setRoleMode('user')}>ðŸ‘¨â€ðŸŽ“ I am a Student User</button>
-              <button className="btn" style={{ background: 'transparent', color: '#ef4444', padding: '1.5rem', fontSize: '1.2rem', borderRadius: '16px', border: '2px solid #ef4444' }} onClick={() => setRoleMode('admin')}>ðŸ›¡ï¸ I am an Administrator</button>
+              <button className="btn btn-primary" style={{ padding: '2rem', fontSize: '1.4rem', borderRadius: '16px', boxShadow: '0 8px 30px rgba(16, 185, 129, 0.4)' }} onClick={() => setRoleMode('user')}>I am a Student User</button>
+              <button className="btn" style={{ background: 'transparent', color: '#ef4444', padding: '1.5rem', fontSize: '1.2rem', borderRadius: '16px', border: '2px solid #ef4444' }} onClick={() => setRoleMode('admin')}>I am an Administrator</button>
             </div>
           </div>
         </div>
@@ -156,7 +156,7 @@ export default function Login() {
       </div>
 
       <div style={{ flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center', position: 'relative' }}>
-        <button className="btn btn-secondary" style={{ position: 'absolute', top: '2rem', right: '2rem', border: 'none', background: 'rgba(0,0,0,0.05)' }} onClick={() => {setRoleMode(null); setError(''); setMessage(''); setIsForgotPassword(false);}}>Change Portal â†º</button>
+        <button className="btn btn-secondary" style={{ position: 'absolute', top: '2rem', right: '2rem', border: 'none', background: 'rgba(0,0,0,0.05)' }} onClick={() => {setRoleMode(null); setError(''); setMessage(''); setIsForgotPassword(false);}}>Change Portal</button>
 
         <div className="glass-panel animate-fade-in" style={{ width: '100%', maxWidth: '450px', background: 'var(--surface)' }}>
           <h2 style={{ textAlign: 'center', marginBottom: '2rem', fontSize: '2rem', color: roleMode==='admin' ? '#ef4444' : 'var(--primary)' }}>
@@ -183,7 +183,7 @@ export default function Login() {
               {otpStep === 2 && (
                 <div>
                   <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold' }}>New Password</label>
-                  <input type="password" required className="input-field" placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢" value={newPassword} onChange={e=>setNewPassword(e.target.value)} />
+                  <input type="password" required className="input-field" placeholder="••••••••" value={newPassword} onChange={e=>setNewPassword(e.target.value)} />
                 </div>
               )}
               <button type="submit" className="btn btn-primary" disabled={isLoading} style={{ width: '100%', padding: '1.2rem', fontSize: '1.1rem' }}>
@@ -213,7 +213,7 @@ export default function Login() {
               </div>
               <div>
                 <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold' }}>Password</label>
-                <input type="password" className="input-field" placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢" value={password} onChange={e=>setPassword(e.target.value)} />
+                <input type="password" className="input-field" placeholder="••••••••" value={password} onChange={e=>setPassword(e.target.value)} />
               </div>
               
               <button type="submit" className="btn btn-primary" disabled={isLoading} style={{ width: '100%', padding: '1.2rem', fontSize: '1.1rem', background: roleMode==='admin' ? '#ef4444' : '', boxShadow: roleMode==='admin' ? '0 4px 15px rgba(239, 68, 68, 0.4)':'' }}>
@@ -237,4 +237,3 @@ export default function Login() {
     </div>
   );
 }
-

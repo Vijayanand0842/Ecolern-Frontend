@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { API_URL } from '../apiConfig';
+
 
 export default function AdminDashboard() {
   const [stats, setStats] = useState({ users: 0, lessons: 0, projects: 0 });
@@ -26,11 +28,12 @@ export default function AdminDashboard() {
 
   const fetchData = async () => {
     const [statsRes, usersRes, projectsRes, pendingRes] = await Promise.all([
-      fetch((import.meta.env.VITE_API_URL || '') + '/api/stats'),
-      fetch((import.meta.env.VITE_API_URL || '') + '/api/users'),
-      fetch((import.meta.env.VITE_API_URL || '') + '/api/projects'),
-      fetch((import.meta.env.VITE_API_URL || '') + '/api/projects/pending')
+      fetch(`${API_URL}/api/stats`),
+      fetch(`${API_URL}/api/users`),
+      fetch(`${API_URL}/api/projects`),
+      fetch(`${API_URL}/api/projects/pending`)
     ]);
+
     const s = await statsRes.json();
     const u = await usersRes.json();
     const p = await projectsRes.json();
@@ -43,21 +46,24 @@ export default function AdminDashboard() {
   };
 
   const loadUserDetails = async (user) => {
-    const res = await fetch(`${import.meta.env.VITE_API_URL || ""}/api/users/${user.id}/details`);
+    const res = await fetch(`${API_URL}/api/users/${user.id}/details`);
+
     const details = await res.json();
     setSelectedUser({ ...user, details });
   };
 
   const handleVerify = async () => {
     if (!selectedUser) return;
-    await fetch(`${import.meta.env.VITE_API_URL || ""}/api/users/${selectedUser.id}/verify`, { method: 'POST' });
+    await fetch(`${API_URL}/api/users/${selectedUser.id}/verify`, { method: 'POST' });
+
     fetchData(); // reload
     setSelectedUser(null);
   };
 
   const handleAddProject = async (e) => {
     e.preventDefault();
-    await fetch((import.meta.env.VITE_API_URL || '') + '/api/projects', {
+    await fetch(`${API_URL}/api/projects`, {
+
       method: 'POST', headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ title: projTitle, description: projDesc, difficulty: projDiff })
     });
@@ -68,13 +74,15 @@ export default function AdminDashboard() {
 
   const handleDeleteProject = async (id) => {
     if (!window.confirm('Are you sure you want to delete this project?')) return;
-    await fetch(`${import.meta.env.VITE_API_URL || ""}/api/projects/${id}`, { method: 'DELETE' });
+    await fetch(`${API_URL}/api/projects/${id}`, { method: 'DELETE' });
+
     fetchData();
   };
 
   const handleApproveProject = async (projectId, userId) => {
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL || ""}/api/projects/${projectId}/approve/${userId}`, { method: 'POST' });
+      const res = await fetch(`${API_URL}/api/projects/${projectId}/approve/${userId}`, { method: 'POST' });
+
       if (res.ok) {
         alert('Project approved successfully! 100 points awarded.');
         fetchData();

@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import { API_URL } from '../apiConfig';
+
 
 export default function UserDashboard() {
   const [user, setUser] = useState(null);
@@ -18,7 +20,8 @@ export default function UserDashboard() {
 
   const fetchLessons = async () => {
     try {
-      const res = await fetch((import.meta.env.VITE_API_URL || '') + '/api/lessons');
+      const res = await fetch(`${API_URL}/api/lessons`);
+
       const data = await res.json();
       setLessons(data);
     } catch (err) {

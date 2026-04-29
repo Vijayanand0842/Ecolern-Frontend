@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { API_URL } from '../apiConfig';
+
 
 export default function Login() {
   const [roleMode, setRoleMode] = useState(null); // 'admin' | 'user' | null
@@ -56,8 +58,8 @@ export default function Login() {
     const payload = isRegister ? { username, password, name, email } : { username, password };
     
     try {
-      const baseUrl = import.meta.env.VITE_API_URL || 'https://ecolearn-backend-ehag.onrender.com';
-      const res = await fetch(`${baseUrl}${endpoint}`, {
+      const res = await fetch(`${API_URL}${endpoint}`, {
+
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
@@ -86,7 +88,8 @@ export default function Login() {
 
     if (otpStep === 0) { // Request OTP
       try {
-        const res = await fetch((import.meta.env.VITE_API_URL || '') + '/api/users/forgot-password', {
+        const res = await fetch(`${API_URL}/api/users/forgot-password`, {
+
           method: 'POST', headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ email })
         });
@@ -99,7 +102,8 @@ export default function Login() {
       } catch (e) { setError('Server Error'); }
     } else if (otpStep === 1) { // Verify OTP
       try {
-        const res = await fetch((import.meta.env.VITE_API_URL || '') + '/api/users/verify-otp', {
+        const res = await fetch(`${API_URL}/api/users/verify-otp`, {
+
           method: 'POST', headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ email, otp })
         });
@@ -111,7 +115,8 @@ export default function Login() {
       } catch (e) { setError('Server Error'); }
     } else if (otpStep === 2) { // Reset Password
       try {
-        const res = await fetch((import.meta.env.VITE_API_URL || '') + '/api/users/reset-password', {
+        const res = await fetch(`${API_URL}/api/users/reset-password`, {
+
           method: 'POST', headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ email, password: newPassword })
         });

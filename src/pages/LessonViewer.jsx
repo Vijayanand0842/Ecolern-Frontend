@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { API_URL } from '../apiConfig';
+
 
 export default function LessonViewer() {
   const { id } = useParams();
@@ -26,11 +28,11 @@ export default function LessonViewer() {
   }, [id, navigate]);
 
   const fetchData = async (userId) => {
-    const lesRes = await fetch((import.meta.env.VITE_API_URL || '') + '/api/lessons');
+    const lesRes = await fetch(`${API_URL}/api/lessons`);
     const lesData = await lesRes.json();
     setLesson(lesData.find(l => l.id.toString() === id));
 
-    const modRes = await fetch(`${import.meta.env.VITE_API_URL || ""}/api/lessons/${id}/modules?userId=${userId}`);
+    const modRes = await fetch(`${API_URL}/api/lessons/${id}/modules?userId=${userId}`);
     setModules(await modRes.json());
   };
 
@@ -38,7 +40,8 @@ export default function LessonViewer() {
     setCurrentModule(mod);
     setViewState('pages');
     setCurrentPageIndex(0);
-    const res = await fetch(`${import.meta.env.VITE_API_URL || ""}/api/modules/${mod.id}/pages`);
+    const res = await fetch(`${API_URL}/api/modules/${mod.id}/pages`);
+
     setPages(await res.json());
   };
 
@@ -46,7 +49,8 @@ export default function LessonViewer() {
     if (currentPageIndex < pages.length - 1) {
       setCurrentPageIndex(prev => prev + 1);
     } else {
-      const res = await fetch(`${import.meta.env.VITE_API_URL || ""}/api/modules/${currentModule.id}/quiz`);
+      const res = await fetch(`${API_URL}/api/modules/${currentModule.id}/quiz`);
+
       setQuiz(await res.json());
       setViewState('quiz');
       setQuizAnswers({});
@@ -60,7 +64,8 @@ export default function LessonViewer() {
 
     if (isPass) {
       setQuizFeedback('Perfect score! Submitting progress...');
-      await fetch(`${import.meta.env.VITE_API_URL || ""}/api/modules/${currentModule.id}/complete`, {
+      await fetch(`${API_URL}/api/modules/${currentModule.id}/complete`, {
+
         method: 'POST', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ userId: user.id })
       });

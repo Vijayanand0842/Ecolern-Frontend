@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { API_URL } from '../apiConfig';
+
 
 export default function ProjectBoard() {
   const [projects, setProjects] = useState([]);
@@ -18,7 +20,8 @@ export default function ProjectBoard() {
 
   const fetchProjects = async (userId) => {
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL || ""}/api/projects?userId=${userId}`);
+      const res = await fetch(`${API_URL}/api/projects?userId=${userId}`);
+
       setProjects(await res.json());
     } catch (err) {
       console.error(err);
@@ -32,7 +35,8 @@ export default function ProjectBoard() {
     }
     setIsSubmitting(true);
     try {
-      await fetch(`${import.meta.env.VITE_API_URL || ""}/api/projects/${selectedProject.id}/complete`, {
+      await fetch(`${API_URL}/api/projects/${selectedProject.id}/complete`, {
+
         method: 'POST', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ userId: user.id, proof: proofText })
       });
@@ -49,7 +53,8 @@ export default function ProjectBoard() {
   const deleteProject = async (projectId) => {
     if (!window.confirm('Are you sure you want to delete this project?')) return;
     try {
-      await fetch(`${import.meta.env.VITE_API_URL || ""}/api/projects/${projectId}`, { method: 'DELETE' });
+      await fetch(`${API_URL}/api/projects/${projectId}`, { method: 'DELETE' });
+
       fetchProjects(user.id);
     } catch (err) {
       console.error(err);
